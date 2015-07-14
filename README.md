@@ -9,24 +9,24 @@ solder jumper to be either 3.3V or to be the current VSYS voltage.
 
 Here's a list of the signals available on the block:
 
-Edison Pin | MRAA Pin | Secondary Use | Notes  
----------------------------------------------  
-GP12       | 20       | PWM0          | 1  
-GP13       | 14       | PWM1          | 1  
-GP14       | 36       | None          | 1,2  
-GP15       | 48       | None          | 1,2  
-GP44       | 31       | None          | 2  
-GP45       | 45       | None          | 2  
-GP46       | 32       | None          | 2,3  
-GP47       | 46       | None          | 1,2,3  
-GP48       | 33       | None          | 1,2,3  
-GP49       | 47       | None          | 1,2,3  
-GP128      | 13       | UART1 CTS     |   
-GP129      | 25       | UART1 RTS     |  
-GP130      | 26       | UART1 RX      | 4  
-GP131      | 35       | UART1 TX      | 4  
-GP182      | 0        | PWM2          |  
-GP183      | 21       | PWM3          |    
+|Edison Pin | MRAA Pin | Secondary Use | Notes |
+|-----------|----------|---------------|-------|
+|GP12       | 20       | PWM0          | 1     |
+|GP13       | 14       | PWM1          | 1     |
+|GP14       | 36       | None          | 1,2   |
+|GP15       | 48       | None          | 1,2   |
+|GP44       | 31       | None          | 2     |
+|GP45       | 45       | None          | 2     |
+|GP46       | 32       | None          | 2,3   |
+|GP47       | 46       | None          | 1,2,3 |
+|GP48       | 33       | None          | 1,2,3 |
+|GP49       | 47       | None          | 1,2,3 |
+|GP128      | 13       | UART1 CTS     |       |
+|GP129      | 25       | UART1 RTS     |       |
+|GP130      | 26       | UART1 RX      | 4     |
+|GP131      | 35       | UART1 TX      | 4     |
+|GP182      | 0        | PWM2          |       |
+|GP183      | 21       | PWM3          |       |  
 
 Notes:  
 1 - Signal also used on H-Bridge Block  

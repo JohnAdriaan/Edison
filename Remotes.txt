@@ -1,0 +1,11 @@
+git remote -v show
+SparkFun	https://github.com/sparkfun/Edison_OLED_Block (fetch)
+SparkFun	https://github.com/sparkfun/Edison_OLED_Block (push)
+SparkFun9DoF	https://github.com/sparkfun/SparkFun_9DOF_Block_for_Edison_CPP_Library (fetch)
+SparkFun9DoF	https://github.com/sparkfun/SparkFun_9DOF_Block_for_Edison_CPP_Library (push)
+SparkFunGPIO	https://github.com/sparkfun/SparkFun_GPIO_Block_for_Edison_CPP_Examples (fetch)
+SparkFunGPIO	https://github.com/sparkfun/SparkFun_GPIO_Block_for_Edison_CPP_Examples (push)
+SparkFunPWM	https://github.com/sparkfun/SparkFun_PWM_Block_for_Edison_CPP_Library (fetch)
+SparkFunPWM	https://github.com/sparkfun/SparkFun_PWM_Block_for_Edison_CPP_Library (push)
+origin	https://github.com/JohnBurger/Edison.git (fetch)
+origin	https://github.com/JohnBurger/Edison.git (push)

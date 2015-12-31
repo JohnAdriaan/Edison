@@ -23,8 +23,8 @@
  * local, and you've found our code helpful, please buy us a round!
  * ****************************************************************************/
 
-#include "mraa.hpp"
-#include "SparkFun_pca9685_Edison.h"
+#include <mraa.hpp>
+#include <pwm/SparkFun_pca9685_Edison.h>
 #include <iostream>
 #include <unistd.h>
 
@@ -35,7 +35,7 @@ using namespace std;
 #define RED 2
 #define GREEN 3
 #define BLUE 4
-  
+
 // Uncomment one or both of these defines to enable the appropriate demo. Do
 //  note servo motors and LEDs are best used at different frequencies and
 //  polarities, so hooking both at once will give you bad results.

@@ -10,9 +10,9 @@ static const bool wrapUD = false;  // Do Up() & Down() wrap around?
 
 static const bool wrapLR = false; // Do Left() & Right() wrap around?
 
-static const bool metric = true;
+static const bool metric = true; // Display by default in metric?
 
-static const char degree = 0xF7; // '÷';
+static const char degree = 0xF7; // This is the '°' symbol, but this editor shows it as '÷'
 
 Screen::Screen(const GP20U7 &gps) :
         edOLED(),
@@ -443,8 +443,7 @@ void Screen::ShowGLL() {
 void Screen::ShowGSA(bool sats) {
     setCursor(0,0);
     print("GSA");
-    setCursor(40,0);
-    write(gps.gsa.automatic.Char());
+    drawChar(40, 0, gps.gsa.automatic.Char());
     setCursor(52,0);
     print(gps.gsa.fix.String());
     if (!sats) {
@@ -564,19 +563,16 @@ void Screen::ShowDiag2() {
 } // Screen::ShowDiag2()
 
 void Screen::Print(const NMEA0183::Byte &sats) {
-    setCursor(48,0);
-    write('#');
+    drawChar(48, 0, '#');
     setCursor(53,0);
     print(sats.Value());
 } // Screen::Print(sats)
 
 void Screen::Print(const NMEA0183::Bool *status, const NMEA0183::Bool &valid) {
     if (status!=0) {
-        setCursor(54,0);
-        write(status->Char());
+        drawChar(54, 0, status->Char());
     } // if
-    setCursor(59,0);
-    write(valid.Char());
+    drawChar(59, 0, valid.Char());
 } // Screen::Print(status,valid)
 
 void Screen::Print(const NMEA0183::Real &value, const NMEA0183::Char &c) {
@@ -730,12 +726,10 @@ void Screen::Print(const NMEA0183::Sat &sat, unsigned y) {
     } // if
     setCursor(14,y);
     print(el);
-    setCursor(25,y);
-    write(degree);
+    drawChar(25,y,degree);
     setCursor(30,y);
     print(az);
-    setCursor(47,y);
-    write(degree);
+    drawChar(47,y,degree);
     setCursor(52,y);
     print(snr);
 } // Screen::Print(Sat,y)

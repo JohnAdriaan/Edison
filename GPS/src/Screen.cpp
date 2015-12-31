@@ -741,5 +741,6 @@ void Screen::Print(const NMEA0183::Sat &sat, unsigned y) {
 } // Screen::Print(Sat,y)
 
 Screen::~Screen() {
+    invert(false);
     Clear();
 } // Screen::~Screen()

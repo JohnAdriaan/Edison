@@ -119,11 +119,14 @@ void ShowPage() {
     unsigned char c = start;   // Starting char to display
     unsigned startCol = 0;     // Assume no Hex to show
     if (ShowHex) {
-        display.setCursor(0,CharHeight * 1/2); // 1st Hex char pos
-        display.write(Hex((c >> 4) & 0xF));
-        display.setCursor(0,CharHeight * 3/2); // 2nd Hex char pos
-        display.write(Hex((c >> 0) & 0xF));
+        display.drawChar(0, CharHeight * 1/2,
+                         Hex((c>>4) & 0xF),
+                         BLACK, NORM);
+        display.drawChar(0, CharHeight * 3/2,
+                         Hex((c>>0) & 0xF),
+                         BLACK, NORM);
         startCol = CharWidth * 3/2;          // Leave room for Hex
+        display.setColor(WHITE);
     } // for
 
     for (unsigned row=0;                   // Run through rows
@@ -132,8 +135,7 @@ void ShowPage() {
         for (unsigned col=startCol;        // Run through columns
                 col <= LCDWIDTH-CharWidth;
                 col += CharWidth) {
-            display.setCursor(col,row);    // Don't pad around characters
-            display.write(c);              // Display character
+            display.drawChar(col, row, c);
             if (c++ == MaxChar) {          // Next character
                 display.display();
                 return;                    // Too far?

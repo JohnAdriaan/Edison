@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.debug.1054068216/CPATH/delimiter=;
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.debug.1054068216/CPATH/operation=remove
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.debug.1054068216/CPLUS_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.debug.1054068216/CPLUS_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.debug.1054068216/C_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.debug.1054068216/C_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.debug.1054068216/append=true
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.debug.1054068216/appendContributed=true
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.release.995278567/CPATH/delimiter=;
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.release.995278567/CPATH/operation=remove
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.release.995278567/CPLUS_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.release.995278567/CPLUS_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.release.995278567/C_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.release.995278567/C_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.release.995278567/append=true
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.generic.config.lib.release.995278567/appendContributed=true

@@ -19,17 +19,15 @@ local, and you've found our code helpful, please buy us a round!
 Distributed as-is; no warranty is given.
 ******************************************************************************/
 
-#include "mraa.hpp"
-
 #include <iostream>
 #include <unistd.h>
-#include "SFE_LSM9DS0.h"
+#include <9dof/SFE_LSM9DS0.h>
+
 using namespace std;
 
 int main()
 {
-  LSM9DS0 *imu;
-  imu = new LSM9DS0(0x6B, 0x1D);
+  LSM9DS0 imu(0x6B, 0x1D);
   // The begin() function sets up some basic parameters and turns the device
   //  on; you may not need to do more than call it. It also returns the "whoami"
   //  registers from the chip. If all is good, the return value here should be
@@ -49,50 +47,37 @@ int main()
   //  setAccelScale(accel_scale aScl)  setGyroODR(accel_odr aRate)
   // If you want to make these changes at the point of calling begin, here's
   //  the prototype for that function showing the order to pass things:
-  //  begin(gyro_scale gScl, accel_scale aScl, mag_scale mScl, 
+  //  begin(gyro_scale gScl, accel_scale aScl, mag_scale mScl,
 	//				gyro_odr gODR, accel_odr aODR, mag_odr mODR)
-  uint16_t imuResult = imu->begin();
+  uint16_t imuResult = imu.begin();
   cout<<hex<<"Chip ID: 0x"<<imuResult<<dec<<" (should be 0x49d4)"<<endl;
-
-  bool newAccelData = false;
-  bool newMagData = false;
-  bool newGyroData = false;
-  bool overflow = false;
 
   // Loop and report data
   while (1)
   {
+      bool newAccelData = false;
+      bool newMagData = false;
+      bool newGyroData = false;
+      bool overflow = false;
+
     // First, let's make sure we're collecting up-to-date information. The
     //  sensors are sampling at 100Hz (for the accelerometer, magnetometer, and
     //  temp) and 95Hz (for the gyro), and we could easily do a bunch of
     //  crap within that ~10ms sampling period.
     while ((newGyroData & newAccelData & newMagData) != true)
     {
-      if (newAccelData != true)
-      {
-        newAccelData = imu->newXData();
-      }
-      if (newGyroData != true)
-      {
-        newGyroData = imu->newGData();
-      }
-      if (newMagData != true)
-      {
-        newMagData = imu->newMData(); // Temp data is collected at the same
+        newAccelData = newAccelData || imu.newXData();
+        newGyroData = newGyroData || imu.newGData();
+        newMagData = newMagData || imu.newMData(); // Temp data is collected at the same
                                       //  rate as magnetometer data.
-      } 
     }
-
-    newAccelData = false;
-    newMagData = false;
-    newGyroData = false;
 
     // Of course, we may care if an overflow occurred; we can check that
     //  easily enough from an internal register on the part. There are functions
     //  to check for overflow per device.
-    overflow = imu->xDataOverflow() | 
-               imu->gDataOverflow() | 
-               imu->mDataOverflow();
+    overflow = imu.xDataOverflow() |
+               imu.gDataOverflow() |
+               imu.mDataOverflow();
 
     if (overflow)
     {
@@ -104,36 +89,36 @@ int main()
     //  automated check on whether the data is new; you need to do that
     //  manually as above. Also, there's no check on overflow, so you may miss
     //  a sample and not know it.
-    imu->readAccel();
-    imu->readMag();
-    imu->readGyro();
-    imu->readTemp();
+    imu.readAccel();
+    imu.readMag();
+    imu.readGyro();
+    imu.readTemp();
 
     // Print the unscaled 16-bit signed values.
     cout<<"-------------------------------------"<<endl;
-    cout<<"Gyro x: "<<imu->gx<<endl;
-    cout<<"Gyro y: "<<imu->gy<<endl;
-    cout<<"Gyro z: "<<imu->gz<<endl;
-    cout<<"Accel x: "<<imu->ax<<endl;
-    cout<<"Accel y: "<<imu->ay<<endl;
-    cout<<"Accel z: "<<imu->az<<endl;
-    cout<<"Mag x: "<<imu->mx<<endl;
-    cout<<"Mag y: "<<imu->my<<endl;
-    cout<<"Mag z: "<<imu->mz<<endl;
-    cout<<"Temp: "<<imu->temperature<<endl;
+    cout<<"Gyro x: "<<imu.gx<<endl;
+    cout<<"Gyro y: "<<imu.gy<<endl;
+    cout<<"Gyro z: "<<imu.gz<<endl;
+    cout<<"Accel x: "<<imu.ax<<endl;
+    cout<<"Accel y: "<<imu.ay<<endl;
+    cout<<"Accel z: "<<imu.az<<endl;
+    cout<<"Mag x: "<<imu.mx<<endl;
+    cout<<"Mag y: "<<imu.my<<endl;
+    cout<<"Mag z: "<<imu.mz<<endl;
+    cout<<"Temp: "<<imu.temperature<<endl;
     cout<<"-------------------------------------"<<endl;
 
     // Print the "real" values in more human comprehensible units.
     cout<<"-------------------------------------"<<endl;
-    cout<<"Gyro x: "<<imu->calcGyro(imu->gx)<<" deg/s"<<endl;
-    cout<<"Gyro y: "<<imu->calcGyro(imu->gy)<<" deg/s"<<endl;
-    cout<<"Gyro z: "<<imu->calcGyro(imu->gz)<<" deg/s"<<endl;
-    cout<<"Accel x: "<<imu->calcAccel(imu->ax)<<" g"<<endl;
-    cout<<"Accel y: "<<imu->calcAccel(imu->ay)<<" g"<<endl;
-    cout<<"Accel z: "<<imu->calcAccel(imu->az)<<" g"<<endl;
-    cout<<"Mag x: "<<imu->calcMag(imu->mx)<<" Gauss"<<endl;
-    cout<<"Mag y: "<<imu->calcMag(imu->my)<<" Gauss"<<endl;
-    cout<<"Mag z: "<<imu->calcMag(imu->mz)<<" Gauss"<<endl;
+    cout<<"Gyro x: " << imu.calcGyro(imu.gx) << " deg/s"<<endl;
+    cout<<"Gyro y: " << imu.calcGyro(imu.gy) << " deg/s"<<endl;
+    cout<<"Gyro z: " << imu.calcGyro(imu.gz) << " deg/s"<<endl;
+    cout<<"Accel x: " << imu.calcAccel(imu.ax) << " g"<<endl;
+    cout<<"Accel y: " << imu.calcAccel(imu.ay) << " g"<<endl;
+    cout<<"Accel z: " << imu.calcAccel(imu.az) << " g"<<endl;
+    cout<<"Mag x: " << imu.calcMag(imu.mx) << " Gauss"<<endl;
+    cout<<"Mag y: " << imu.calcMag(imu.my) << " Gauss"<<endl;
+    cout<<"Mag z: " << imu.calcMag(imu.mz) << " Gauss"<<endl;
     // Temp conversion is left as an example to the reader, as it requires a
     //  good deal of device- and system-specific calibration. The on-board
     //  temp sensor is probably best not used if local temp data is required!

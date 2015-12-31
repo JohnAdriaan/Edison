@@ -1,4 +1,12 @@
 eclipse.preferences.version=1
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/CPATH/delimiter=;
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/CPATH/operation=remove
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/CPLUS_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/CPLUS_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/C_INCLUDE_PATH/delimiter=;
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/C_INCLUDE_PATH/operation=remove
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/append=true
+environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/appendContributed=true
 environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.cross.exe.debug.1126270729/CPATH/delimiter=;
 environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.cross.exe.debug.1126270729/CPATH/operation=remove
 environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.cross.exe.debug.1126270729/CPLUS_INCLUDE_PATH/delimiter=;
@@ -7,6 +15,10 @@ environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.cross.exe
 environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.cross.exe.debug.1126270729/C_INCLUDE_PATH/operation=remove
 environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.cross.exe.debug.1126270729/append=true
 environment/buildEnvironmentInclude/com.intel.iotdevkit.ide.config.gnu.cross.exe.debug.1126270729/appendContributed=true
+environment/buildEnvironmentLibrary/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/LIBRARY_PATH/delimiter=;
+environment/buildEnvironmentLibrary/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/LIBRARY_PATH/operation=remove
+environment/buildEnvironmentLibrary/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/append=true
+environment/buildEnvironmentLibrary/com.intel.iotdevkit.ide.config.cross.exe.release.327947858/appendContributed=true
 environment/buildEnvironmentLibrary/com.intel.iotdevkit.ide.config.gnu.cross.exe.debug.1126270729/LIBRARY_PATH/delimiter=;
 environment/buildEnvironmentLibrary/com.intel.iotdevkit.ide.config.gnu.cross.exe.debug.1126270729/LIBRARY_PATH/operation=remove
 environment/buildEnvironmentLibrary/com.intel.iotdevkit.ide.config.gnu.cross.exe.debug.1126270729/append=true

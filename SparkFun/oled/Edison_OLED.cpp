@@ -71,20 +71,20 @@ static unsigned char screenmemory [] = {
 	 D6 D6.............D6       /
 	 D7 D7.............D7  ----
 	*/
-	//SparkFun Electronics LOGO 
-	
+	//SparkFun Electronics LOGO
+
 	// ROW0, unsigned char0 to unsigned char63
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0xF8, 0xFC, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF,
 	0xFF, 0xFF, 0xFF, 0x0F, 0x07, 0x07, 0x06, 0x06, 0x00, 0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-	
+
 	// ROW1, unsigned char64 to unsigned char127
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 0x80, 0x81, 0x07, 0x0F, 0x3F, 0x3F, 0xFF, 0xFF, 0xFF,
 	0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xFE, 0xFC, 0xFC, 0xFC, 0xFE, 0xFF, 0xFF, 0xFF, 0xFC, 0xF8, 0xE0,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-	
+
 	// ROW2, unsigned char128 to unsigned char191
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFC,
 	0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF1, 0xE0, 0xE0, 0xE0, 0xE0, 0xE0, 0xF0, 0xFD, 0xFF,
@@ -102,7 +102,7 @@ static unsigned char screenmemory [] = {
 	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x7F, 0x3F, 0x1F, 0x1F, 0x0F, 0x0F, 0x0F, 0x0F,
 	0x0F, 0x0F, 0x0F, 0x0F, 0x07, 0x07, 0x07, 0x03, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-	
+
 	// ROW5, unsigned char320 to unsigned char383
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF,
 	0x7F, 0x3F, 0x1F, 0x0F, 0x07, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -140,9 +140,9 @@ void edOLED::begin()
 	setColor(WHITE);
 	setDrawMode(NORM);
 	setCursor(0,0);
-	
+
 	spiSetup();
-	
+
 	RST_PIN.pinWrite(HIGH); //(digitalWrite(rstPin, HIGH);
 	usleep(5000); // VDD (3.3V) goes high at start, lets just chill for 5 ms
 	RST_PIN.pinWrite(LOW); // bring reset low
@@ -180,7 +180,7 @@ void edOLED::begin()
 
 	command(SETPRECHARGE);			// 0xd9
 	command(0xF1);
-	
+
 	command(SETVCOMDESELECT);			// 0xDB
 	command(0x40);
 
@@ -231,7 +231,7 @@ void edOLED::setColumnAddress(unsigned char add)
 }
 
 /** \brief Clear screen buffer or SSD1306's memory.
- 
+
     To clear GDRAM inside the LCD controller, pass in the variable mode =
     ALL and to clear screen page buffer pass in the variable mode = PAGE.
 */
@@ -256,7 +256,7 @@ void edOLED::clear(unsigned char mode)
 	}
 }
 
-/** \brief Clear or replace screen buffer or SSD1306's memory with a character.	
+/** \brief Clear or replace screen buffer or SSD1306's memory with a character.
 
 	To clear GDRAM inside the LCD controller, pass in the variable mode = ALL
 	with c character and to clear screen page buffer, pass in the variable
@@ -281,7 +281,7 @@ void edOLED::clear(unsigned char mode, unsigned char c)
 	{
 		memset(screenmemory,c,384);			// (64 x 48) / 8 = 384
 		display();
-	}	
+	}
 }
 
 /** \brief Invert display.
@@ -314,7 +314,7 @@ void edOLED::contrast(unsigned char contrast)
 void edOLED::display(void)
 {
 	unsigned char i, j;
-	
+
 	for (i=0; i<6; i++)
 	{
 		setPageAddress(i);
@@ -542,7 +542,7 @@ void edOLED::rect(unsigned char x, unsigned char y, unsigned char width, unsigne
 	lineV(x,y+1, tempHeight, color, mode);
 	lineV(x+width-1, y+1, tempHeight, color, mode);
 }
-	
+
 /** \brief Draw filled rectangle.
 
     Draw filled rectangle using current fore color and current draw mode from x,y to x+width,y+height of the screen buffer.
@@ -555,7 +555,7 @@ void edOLED::rectFill(unsigned char x, unsigned char y, unsigned char width, uns
 /** \brief Draw filled rectangle with color and mode.
 
     Draw filled rectangle using color and mode from x,y to x+width,y+height of the screen buffer.
-*/	
+*/
 void edOLED::rectFill(unsigned char x, unsigned char y, unsigned char width, unsigned char height, unsigned char color , unsigned char mode)
 {
 	for (int i=x; i<x+width;i++)
@@ -681,7 +681,7 @@ unsigned char edOLED::getLCDHeight(void)
 /** \brief Get LCD width.
 
     The width of the LCD return as unsigned char.
-*/	
+*/
 unsigned char edOLED::getLCDWidth(void)
 {
 	return LCDWIDTH;
@@ -690,7 +690,7 @@ unsigned char edOLED::getLCDWidth(void)
 /** \brief Get font width.
 
     The cucrrent font's width return as unsigned char.
-*/	
+*/
 unsigned char edOLED::getFontWidth(void)
 {
 	return fontWidth;
@@ -825,7 +825,7 @@ void  edOLED::drawChar(unsigned char x, unsigned char y, unsigned char c, unsign
 				{
 					pixel(x+i, y+j, !color,mode);
 				}
-				
+
 				temp >>=1;
 			}
 		}
@@ -889,7 +889,7 @@ void edOLED::scrollRight(unsigned char start, unsigned char stop)
 	command(0xFF);
 	command(ACTIVATESCROLL);
 }
-	
+
 /** \brief Vertical flip.
 
     Flip the graphics on the OLED vertically.
@@ -909,7 +909,7 @@ void edOLED::flipVertical(unsigned char flip)
 /** \brief Horizontal flip.
 
     Flip the graphics on the OLED horizontally.
-*/	
+*/
 void edOLED::flipHorizontal(unsigned char flip)
 {
 	if (flip)
@@ -951,7 +951,7 @@ void edOLED::spiTransfer(unsigned char data)
 			MOSI_PIN.pinWrite(HIGH);	//digitalWrite(MOSI, HIGH);
 		else
 			MOSI_PIN.pinWrite(LOW);		//digitalWrite(MOSI, LOW);
-		
+
 		delayMicroseconds(1);
 		SCLK_PIN.pinWrite(LOW);			//digitalWrite(SCK, LOW);
 		delayMicroseconds(1);

@@ -99,7 +99,7 @@ typedef enum CMD {
 class edOLED {
 public:
 	edOLED();
-	
+
 	void begin(void);
 
 	unsigned char write(unsigned char);
@@ -111,7 +111,7 @@ public:
 	void data(unsigned char c);
 	void setColumnAddress(unsigned char add);
 	void setPageAddress(unsigned char add);
-	
+
 	// LCD Draw functions
 	void clear(unsigned char mode);
 	void clear(unsigned char mode, unsigned char c);
@@ -152,7 +152,7 @@ public:
 	unsigned char getFontStartChar(void);
 	unsigned char getFontTotalChar(void);
 
-	// LCD Rotate Scroll functions	
+	// LCD Rotate Scroll functions
 	void scrollRight(unsigned char start, unsigned char stop);
 	void scrollLeft(unsigned char start, unsigned char stop);
 	void scrollVertRight(unsigned char start, unsigned char stop);
@@ -160,14 +160,14 @@ public:
 	void scrollStop(void);
 	void flipVertical(unsigned char flip);
 	void flipHorizontal(unsigned char flip);
-	
+
 	//void doCmd(unsigned char index);
-	
+
 private:
 	unsigned char foreColor,drawMode,fontWidth, fontHeight, fontType, fontStartChar, fontTotalChar, cursorX, cursorY;
 	unsigned int fontMapWidth;
 	static const unsigned char *fontsPointer[];
-					  
+
 	// Communication
 	void spiTransfer(unsigned char data);
 	void spiSetup();

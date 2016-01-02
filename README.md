@@ -85,12 +85,12 @@ I was able to quickly test the code with some LEDs to prove that everything work
 ### Project 0.5: [GPIO](GPIO) demo
 The GPIO Block pins also stick out the side of the Edison Block stack - but some smart cookie at SparkFun decided to use the opposite side of the stack from the PWM Block so that the two didn't interfere with each other!
 
-This time I wanted to connect [hookup wires](https://www.sparkfun.com/products/11026) to the pins, and I have far more male-to-male hookup wires than male-to-female ones, so this time I soldered [these socket headers](https://www.sparkfun.com/products/11417) to the holes. I used two Kits, because they only came with one 10-pin header each - but I used the 6-pin header to great effect with the UART Block [below](#Project-08-UART-module)!
+This time I wanted to connect [hookup wires](https://www.sparkfun.com/products/11026) to the pins, and I have far more male-to-male hookup wires than male-to-female ones, so this time I soldered [these socket headers](https://www.sparkfun.com/products/11417) to the holes. I used two Kits, because they only came with one 10-pin header each - but I used the 6-pin header to great effect with the UART Block [below](#project-08-uart-module)!
 
 There was no SparkFun-provided library code, just the demo program, since Intel®'s "mraa" library already has all the requisite functions.
 
 ### Project 0.6: [Button](SparkFun/Button) module
-Although the [Pong](#Project-03-Pong) demo showed how to use the buttons on the OLED Block, I realised that to provide debounce it went into a tight loop when polling the buttons, looking for the initial press. This works when the program (or thread) isn't doing anything else, but to use the code I had to either:
+Although the [Pong demo](#project-03-pong-demo) showed how to use the buttons on the OLED Block, I realised that to provide debounce it went into a tight loop when polling the buttons, looking for the initial press. This works when the program (or thread) isn't doing anything else, but to use the code I had to either:
 1. Use the code as-is, but write a threaded program (it had to process the GPS messages as well as the buttons);
 2. Modify the code to provide a `Poll()` function to the rest of the program.
 
@@ -115,11 +115,11 @@ Nice fonts - and the default 5x7 font had the degree symbol! From my DOS-program
 ### Project 0.8: [UART](SparkFun/UART) module
 The UART Block is designed to connect to devices that interface using asynchronous serial communications - I'd have said "RS-232", "RS-422" or "RS-485", but these include electrical specification (such as ±3-12V or differential signalling) which this Block does *not* adhere to. If you connect a suitable level converter though you can use this Block to implement any of the above standards - the actual serial protocol on this Block is the same with all of them.
 
-But luckily the GP-20U7 GPS module that I got *also* isn't RS-232 or any of the others: it's TTL (0-5V), so I can actually directly connect it to the UART block - or at least I could if it had the correct connector. Easy fix: cut off the tiny one and crimp on a 0.1" connector with the wires in the correct places. Only the UART Block's pins do not project past the edge of the board, and the connnector is too thick to fit between two Blocks. That's OK - the 6-pin socket header I got in [this](https://www.sparkfun.com/products/11417) kit for the [GPIO demo above](#Project-05-GPIO-demo) does fit - and I can snip the Ground pin to indicate which way around to connect it!
+But luckily the GP-20U7 GPS module that I got *also* isn't RS-232 or any of the others: it's TTL (0-5V), so I can actually directly connect it to the UART block - or at least I could if it had the correct connector. Easy fix: cut off the tiny one and crimp on a 0.1" connector with the wires in the correct places. Only the UART Block's pins do not project past the edge of the board, and the connnector is too thick to fit between two Blocks. That's OK - the 6-pin socket header I got in [this](https://www.sparkfun.com/products/11417) kit for the [GPIO demo above](#project-05-gpio-demo) does fit - and I can snip the Ground pin to indicate which way around to connect it!
 
 However, the default Linux code for handling serial communications assumes that on the other end is a person typing lines of commands for a serial terminal program to process and display the results for. It offers numerous editing options and lots of smart processing - and only delivers the final line that the user pressed &lt;Enter&gt; on to the (patiently waiting) program.
 
-The GPS unit does indeed send lines of text, but doesn't use any of the editing commands, and my program cant hang around waiting for the next message - the user might have pressed a Button! So, as with the [Button module](#Project-06-Button-module) above, I can either use a threaded approach to this interface, or put the serial driver into a 'raw' block mode - and write my own end-of-line detection code.
+The GPS unit does indeed send lines of text, but doesn't use any of the editing commands, and my program cant hang around waiting for the next message - the user might have pressed a Button! So, as with the [Button module](#project-06-button-module) above, I can either use a threaded approach to this interface, or put the serial driver into a 'raw' block mode - and write my own end-of-line detection code.
 
 I decided on the latter approach - maybe I'll convert it all to a threaded model in the future.
 

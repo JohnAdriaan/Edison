@@ -1,4 +1,4 @@
-﻿# Edison
+# Edison
 My adventures with the Intel® Edison, using [SparkFun](http://www.sparkfun.com/) Blocks.
 
 ## Table of Contents
@@ -20,8 +20,8 @@ My adventures with the Intel® Edison, using [SparkFun](http://www.sparkfun.com/
       * [Project 0.8: UART module](#project-08-uart-module)
         * [UART Hardware](#uart-hardware)
         * [UART Software](#uart-software)
-      * [Project 0.9: GPS module](#project-09-gps-module)
         * [Confirm the GPS talks to us](#confirm-the-gps-talks-to-us)
+      * [Project 0.9: GPS module](#project-09-gps-module)
     * [Project 1: GPS program](#project-1-gps-program)
       * [GPS Hardware](#gps-hardware)
       * [GPS Software](#gps-software)
@@ -33,7 +33,9 @@ My adventures with the Intel® Edison, using [SparkFun](http://www.sparkfun.com/
 ## Introduction
 
 ### Me
-I have programmed embedded devices in C and C++ for decades, and have been amazed as the technology has shrunk to allow ever-smaller devices. I also started working with GPS when there were only three GPS satellites in the sky, so I'm familiar with many of the concepts - including the NMEA-0183 protocol used by most of the GPS receivers out there. The problem was that all of the code that I had developed for the company I then worked for still belonged to them - I had to re-create the code for me to use all over again!
+I am an Australian (which explains my spelling, with all those extra 'u's, and 's's instead of 'z's!) that has been programming embedded devices in C and C++ for decades, and have been amazed as the technology has shrunk to allow ever-smaller devices.
+
+I started working with GPS when there were only three GPS satellites in the sky, so I'm familiar with most of the concepts - including the NMEA-0183 protocol used by most of the GPS receivers out there. The problem was that all of the code that I had developed for the company I then worked for still belonged to them - I had to re-create the code for me to use all over again!
 
 (Note: I am not affiliated in any way with SparkFun - except as an enthusiastic customer!)
 
@@ -42,7 +44,7 @@ When I first saw the Edison on the [SparkFun](https://www.sparkfun.com/categorie
 
 ![The bare Intel® Edison](Images/Edison.png)
 
-I've placed an Australian $2 coin (20.5mm, which is halfway between a US penny and nickel, albeit thicker) as a size comparison. (And yes, that explains my spelling, with all those extra 'u's, and 's's instead of 'z's!)
+I've placed an Australian $2 coin (20.5mm, which is halfway between a US penny and nickel, albeit thicker) as a size comparison.
 
 I immediately ordered one with a number of Blocks:
 * The [Starter Pack](https://www.sparkfun.com/products/13276), containing:
@@ -114,7 +116,7 @@ Although the [Pong demo](#project-03-pong-demo) showed how to use the buttons on
 While most of the code I've written professionally has been threaded, for my ultimate first project it seemed overkill so I went with option 2. - but added some smarts, including auto-repeat.
 
 ### Project 0.7: [ASCII](ASCII) program
-The SparkFun-provided OLED Block display library came with a number of fonts that you can select. I wanted to see what they looked like, to design my project's screens. Above all I hoped that one (or more) of the fonts included the degree symbol (º) so that I could show my Lat/Long correctly - or whether I'd have to alter the font file or draw the circle myself.
+The SparkFun-provided OLED Block display library came with a number of fonts that can be selected. I wanted to see what they looked like, to design my project's screens. Above all I hoped that one (or more) of the fonts included the degree symbol (º) so that I could show my Lat/Long correctly - or whether I'd have to alter the font file or draw the circle myself.
 
 So for my first actual, from-scratch program I decided to write a program that displayed the fonts, using the OLED Block's buttons for interaction - and to test the new Button module!
 
@@ -138,7 +140,7 @@ Nice fonts - and the default 5x7 font had the degree symbol! From my DOS-program
 ### Project 0.8: [UART](SparkFun/UART) module
 
 #### UART Hardware
-The UART Block is designed to connect to devices that interface using asynchronous serial communications - I'd have said "RS-232", "RS-422" or "RS-485", but these include electrical specification (such as ±3-12V or differential signalling) which this Block does *not* adhere to. If you connect a suitable level converter though you can use this Block to implement any of the above standards - the actual serial protocol on this Block is the same with all of them.
+The UART Block is designed to connect to devices that interface using asynchronous serial communications - I'd have said "RS-232", "RS-422" or "RS-485", but these include electrical specification (such as ±3-12V or differential signalling) which this Block does *not* adhere to. If a suitable level converter is connected, this Block can implement any of the above standards - the actual serial protocol on this Block is the same with all of them.
 
 But luckily the GP-20U7 GPS module that I got *also* isn't RS-232 or any of the others: it's TTL (0-5V), so I can actually directly connect it to the UART Block - or at least I could if it had the correct connector. Easy fix: cut off the tiny one and crimp on a 0.1" connector with the wires in the correct places.
 
@@ -188,16 +190,16 @@ And this is what the running program looks like (I'm outside for a good view of 
 The program offers a number of screens that can be scrolled through by the UART Block's joystick. As GPS information is received, the current screen is automatically updated with the latest information - which could be blank if not enough satellites are currently visible!
 * To 'freeze' or 'unfreeze' the current data set, press Button A.
   * The display will be inverted, to show that the data is 'frozen'.
-  * You can still scroll through the screens and see the data at that instant in time.
+  * The screens can still be scrolled through to see the data at that instant in time.
 * To quit the program, press Button B.
 
 ### GPS Summary screen
-When the program starts, you are presented with a Summary screen that cherry-picks various fields from various GPS messages to tell you some relevant information (see screenshot [above](# gps-software)):
+When the program starts, a Summary screen is shown that cherry-picks various fields from various GPS messages to tell you some relevant information (see screenshot [above](#gps-software)):
 * The number of Satellites being used for tracking, from the number currently visible;
 * The current UTC time;
-* Your current heading; (I'm stationary, so Heading is blank)
-* Your current speed;
-* Your current Latitude and Longitude (in degree-minute-second form)
+* The current heading; (I'm stationary, so Heading is blank)
+* The current speed;
+* The current Latitude and Longitude (in degree-minute-second form)
 
 Note that if the GPS module has only recently been connected or powered on, then it may take a couple of minutes of good visibility of the sky to get some initial fixes. Until then, the 'mask' of the various fields will be displayed empty. 
 
@@ -206,14 +208,14 @@ By scrolling down, the details of the various last-received [NMEA-0183](https://
 
 ![Satellites in view](Images/GSV.png)
 
-Many screens don't have enough real estate to display all the data - you can scroll right and left on these screens to see more. To provide context, note that many 'side' screens repeat the main data.
+Many screens don't have enough real estate to display all the data - scroll right and left on these screens to see more. To provide context, note that many 'side' screens repeat the main data.
 
 ### GPS Diagnostic screens
-The last screen shows the total number of NMEA-0183 messages received, and how many `INV`alid, `UNK`nown and `CHK`sum-errored messages there were. If you scroll right, the next screen breaks down how many of each NMEA-0183 message type were received, and how many were in error.
+The last screen shows the total number of NMEA-0183 messages received, and how many `INV`alid, `UNK`nown and `CHK`sum-errored messages there were. Scroll right, and the next screen breaks down how many of each NMEA-0183 message type were received, and how many were in error.
 
 ![NMEA Message count](Images/NMEA.png)
 
-(Caught mid-update!)
+(Caught mid-update, with one GSV message received in error!)
 
 ----
 With many kudos and thanks to:

@@ -144,7 +144,7 @@ But luckily the GP-20U7 GPS module that I got *also* isn't RS-232 or any of the 
 
 ![GP-20U7 connector](Images/GP-20U7.png)
 
-Only, the UART Block's pins do not project past the edge of the board, and the connnector is too thick to fit between two Blocks. That's OK - the 6-pin socket header I got in [this](https://www.sparkfun.com/products/11417) kit for the [GPIO demo above](#project-05-gpio-demo) does fit - and I can snip the Ground pin to indicate which way around to connect it!
+Only, the UART Block's pins do not project past the edge of the board, and the connnector is too thick to fit between two Blocks. That's OK - the 6-pin socket header I got in [this](https://www.sparkfun.com/products/11417) kit for the [GPIO Block above](#project-05-gpio-demo) does fit - and I can snip the Ground pin to indicate which way around to connect any devices!
 
 ![UART](Images/UART.png)
 
@@ -186,7 +186,9 @@ And this is what the running program looks like (I'm outside for a good view of 
 
 ### GPS Buttons
 The program offers a number of screens that can be scrolled through by the UART Block's joystick. As GPS information is received, the current screen is automatically updated with the latest information - which could be blank if not enough satellites are currently visible!
-* To 'freeze' or 'unfreeze' the current display, press Button A.
+* To 'freeze' or 'unfreeze' the current data set, press Button A.
+  * The display will be inverted, to show that the data is 'frozen'.
+  * You can still scroll through the screens and see the data at that instant in time.
 * To quit the program, press Button B.
 
 ### GPS Summary screen
@@ -197,7 +199,7 @@ When the program starts, you are presented with a Summary screen that cherry-pic
 * Your current speed;
 * Your current Latitude and Longitude (in degree-minute-second form)
 
-Note that if the GPS module has only recently been connected or powered on, then it may take a couple of minutes of good visibility of the sky to get some intial fixes. Until then, the 'mask' of the various fields will be displayed empty. 
+Note that if the GPS module has only recently been connected or powered on, then it may take a couple of minutes of good visibility of the sky to get some initial fixes. Until then, the 'mask' of the various fields will be displayed empty. 
 
 ### GPS NMEA screens
 By scrolling down, the details of the various last-received [NMEA-0183](https://en.wikipedia.org/wiki/NMEA_0183) messages are displayed. The message designation is provided in the top left corner.

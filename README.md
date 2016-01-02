@@ -142,7 +142,7 @@ Nice fonts - and the default 5x7 font had the degree symbol! From my DOS-program
 #### UART Hardware
 The UART Block is designed to connect to devices that interface using asynchronous serial communications - I'd have said "RS-232", "RS-422" or "RS-485", but these include electrical specification (such as ±3-12V or differential signalling) which this Block does *not* adhere to. If a suitable level converter is connected, this Block can implement any of the above standards - the actual serial protocol on this Block is the same with all of them.
 
-But luckily the GP-20U7 GPS module that I got *also* isn't RS-232 or any of the others: it's TTL (0-5V), so I can actually directly connect it to the UART Block - or at least I could if it had the correct connector. Easy fix: cut off the tiny one and crimp on a 0.1" connector with the wires in the correct places.
+But luckily the GP-20U7 GPS module that I got *also* isn't RS-232 or any of the others: it's TTL (0-5V), so I can actually directly connect it to the UART Block - or at least I could if it had the correct connector. Easy fix: cut off the tiny one and [crimp on](https://www.sparkfun.com/products/8100) a [0.1" 6-pin housing](https://www.sparkfun.com/products/retired/8099) with the wires in the correct places.
 
 ![GP-20U7 connector](Images/GP-20U7.png)
 

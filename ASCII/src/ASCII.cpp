@@ -13,12 +13,15 @@ Button::Right nextChar;
 edOLED display;      // The actual OLED display instance
 unsigned char start; // Current first char on display
 
+int font = 0; // Starting font
+
 unsigned char MinChar; // First char in font
 unsigned char MaxChar; // Last char in font
 unsigned CharWidth;    // Width of each char in font
 unsigned CharHeight;   // Height of each char in font
 unsigned CharsInRow;   // Calculation of chars in row (accounting for possible Hex display)
 unsigned Rows;         // Calculation of number of rows
+
 bool ShowHex;          // Whether to show Hex at start
 
 bool finished;       // Can I quit now?
@@ -41,7 +44,7 @@ void SetFont(unsigned char font) {
     MaxChar = MinChar + (display.getFontTotalChar() - 1); // Calculate last char in font
     CharWidth = display.getFontWidth();                   // Get char width
     CharHeight = display.getFontHeight();                 // Get char height
-    CharsInRow = LCDWIDTH / CharWidth;         // Calculate chars in row
+    CharsInRow = LCDWIDTH / (CharWidth+1);     // Calculate chars in row
     Rows = LCDHEIGHT / CharHeight;             // Calculate number of rows
     ShowHex = (CharHeight<=LCDHEIGHT/3) &&     // If two Hex digits will fit...
               (MinChar<='0') &&                // ...and there are digits...
@@ -54,8 +57,6 @@ void SetFont(unsigned char font) {
 
 // When Button::A is Pressed(), choose next font
 int Button::A::Pressed() const {
-    static int font = 0; // Starting font
-
     ++font;              // Next font
     if (font >= display.getTotalFonts()) { // Too far?
         font = 0;              // Start again
@@ -119,13 +120,20 @@ void ShowPage() {
     unsigned char c = start;   // Starting char to display
     unsigned startCol = 0;     // Assume no Hex to show
     if (ShowHex) {
-        display.drawChar(0, CharHeight * 1/2,
+        unsigned y = CharHeight * 1/2;
+        unsigned w = CharWidth + 1;
+        if (font==0) { // 5x7 font has an extra pixel added
+            ++w;
+        } // if
+        display.line(0, y-1, w, y - 1);
+        display.line(0, y, 0, y+2*CharHeight);
+        display.drawChar(1, y,
                          Hex((c>>4) & 0xF),
                          BLACK, NORM);
-        display.drawChar(0, CharHeight * 3/2,
+        display.drawChar(1, y + CharHeight,
                          Hex((c>>0) & 0xF),
                          BLACK, NORM);
-        startCol = CharWidth * 3/2;          // Leave room for Hex
+        startCol = CharWidth * 3/2 + 1;    // Leave room for Hex
         display.setColor(WHITE);
     } // for
 
@@ -134,7 +142,7 @@ void ShowPage() {
             row += CharHeight) {
         for (unsigned col=startCol;        // Run through columns
                 col <= LCDWIDTH-CharWidth;
-                col += CharWidth) {
+                col += CharWidth+1) {
             display.drawChar(col, row, c);
             if (c++ == MaxChar) {          // Next character
                 display.display();

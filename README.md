@@ -27,7 +27,7 @@ My adventures with the Intel® Edison, using [SparkFun](http://www.sparkfun.com/
       * [GPS Software](#gps-software)
         * [GPS Buttons](#gps-buttons)
         * [GPS Summary screen](#gps-summary-screen)
-        * [GPS NMEA screens](#gps-other-screens)
+        * [GPS NMEA screens](#gps-nmea-screens)
         * [GPS Diagnostic screens](#gps-diagnostic-screens)
 
 ## Introduction
@@ -212,3 +212,8 @@ The last screen shows the total number of NMEA-0183 messages received, and how m
 ![NMEA Message count](Images/NMEA.png)
 
 (Caught mid-update!)
+
+----
+With many kudos and thanks to:
+* @jimblom for the OLED libraries;
+* @mhord for the GPIO, PWM and 9DoF libraries.

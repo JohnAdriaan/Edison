@@ -35,8 +35,12 @@ I have programmed embedded devices in C and C++ for decades, and have been amaze
 
 ### The Edison
 When I first saw the Edison on the [SparkFun](https://www.sparkfun.com/categories/272) website, its small size and powerful features made it an ideal hobbyist developer platform for me.
+
 ![The bare Intel Edison](Images/Edison.png)
-I immeditately ordered it with a number of Blocks:
+
+I've placed an Australian $2 coin (20.5mm, which is halfway between a US penny and nickel, albeit thicker) as a size comparison. (And yes, that explains my spelling, with all those extra 'u's and 's's instead of 'z's!)
+
+I immediately ordered one with a number of Blocks:
 * The [Starter Pack](https://www.sparkfun.com/products/13276), containing:
   * The [Edison](https://www.sparkfun.com/products/13024) itself;
   * A [Base Block](https://www.sparkfun.com/products/13045), to allow Console and USB connectivity;
@@ -75,21 +79,27 @@ To understand the Eclipse development environment, and ensure I could program wi
 ### Project 0.3: [Pong](Pong) demo
 The OLED Block has a demo Pong program to show how to write to the screen and read from the buttons. Since my project would want to do that, this demo program was my second candidate for modification to use my SparkFun library.
 
-This was the first time that I found a conflict between the GPIO pins used in the various SparkFun blocks - the OLED's joystick and the GPIO Block shared common pins, making the joystick and buttons unreliable.
+This was the first time that I found a conflict between the GPIO pins used in the various SparkFun Blocks - the OLED Block's joystick and the GPIO Block share common pins, making the joystick and buttons unreliable.
 
 ```Note to self: don't use the OLED Block and GPIO Block together.```
 
 ### Project 0.4: [PWM](PWM) demo
 The PWM Block also has demo code, since the Block adds new PWM ports rather than using the Edison's native ones. The Block's circuit board with the GPIO pins stick out past the side of the Edison Block stack, so to be able to connect the motors and external power I soldered [these pin headers](https://www.sparkfun.com/products/116) to the holes.
-![PWM Block, with pin headers](Images/PWM\ Block.png)
+
+![PWM Block, with pin headers](Images/PWM.png)
+
 I was able to quickly test the code with some LEDs to prove that everything worked.
 
 ### Project 0.5: [GPIO](GPIO) demo
-The GPIO Block pins also stick out the side of the Edison Block stack - but some smart cookie at SparkFun decided to use the opposite side of the stack from the PWM Block so that the two didn't interfere with each other!
+The GPIO Block only has a demo program - there was no SparkFun-provided library code, since IntelÎ§s "mraa" library already has all the requisite functions.
 
-This time I wanted to connect [hookup wires](https://www.sparkfun.com/products/11026) to the pins, and I have far more male-to-male hookup wires than male-to-female ones, so this time I soldered [these socket headers](https://www.sparkfun.com/products/11417) to the holes. I used two Kits, because they only came with one 10-pin header each - but I used the 6-pin header to great effect with the UART Block [below](#project-08-uart-module)!
-![GPIO Block, with socket headers](Images/GPIO\ Block.png)
-There was no SparkFun-provided library code, just the demo program, since Intel®'s "mraa" library already has all the requisite functions.
+The GPIO Block pins also stick out the side of the Edison stack, but this time I wanted to connect [hookup wires](https://www.sparkfun.com/products/11026) to the pins, and I have far more male-to-male hookup wires than male-to-female ones. So this time I instead soldered [these socket headers](https://www.sparkfun.com/products/11417) to the holes. I used two Kits, because they only came with one 10-pin header each - but I used the 6-pin header to great effect with the UART Block [below](#project-08-uart-module)!
+
+![GPIO Block, with socket headers](Images/GPIO.png)
+
+Some smart cookie at SparkFun decided to use the opposite side of the stack from the PWM Block so that the two didn't interfere with each other!
+
+![GPIO and PWM stacked](Images/GPIO\ \&\ PWM.png)
 
 ### Project 0.6: [Button](SparkFun/Button) module
 Although the [Pong demo](#project-03-pong-demo) showed how to use the buttons on the OLED Block, I realised that to provide debounce it went into a tight loop when polling the buttons, looking for the initial press. This works when the program (or thread) isn't doing anything else, but to use the code I had to either:
@@ -99,7 +109,7 @@ Although the [Pong demo](#project-03-pong-demo) showed how to use the buttons on
 While most of the code I've written professionally has been threaded, for my ultimate first project it seemed overkill so I went with option 2. - but added some smarts, including auto-repeat.
 
 ### Project 0.7: [ASCII](ASCII) program
-The SparkFun-provided OLED Block display library came with a number of fonts that you could select. I wanted to see what they looked like to design my project's screens. Above all I hoped that one (or more) of the fonts included the degree symbol (º) so that I could show my Lat/Long correctly - or whether I'd have to alter the font file or draw the circle myself.
+The SparkFun-provided OLED Block display library came with a number of fonts that you can select. I wanted to see what they looked like, to design my project's screens. Above all I hoped that one (or more) of the fonts included the degree symbol (º) so that I could show my Lat/Long correctly - or whether I'd have to alter the font file or draw the circle myself.
 
 So for my first actual, from-scratch program I decided to write a program that displayed the fonts, using the OLED Block's buttons for interaction - and to test the new Button module!
 
@@ -111,6 +121,7 @@ The program starts by selecting the first font, then going into a loop:
   * Left/Right; scroll to next/previous character;
   * Button A: show next font;
   * Button B: quit
+
 ![5x7 font](Images/Font\ 5x7.png)
 ![8x16 font](Images/Font\ 8x16.png)
 ![7-segment font](Images/Font\ 7-segment.png)
@@ -121,7 +132,13 @@ Nice fonts - and the default 5x7 font had the degree symbol! From my DOS-program
 ### Project 0.8: [UART](SparkFun/UART) module
 The UART Block is designed to connect to devices that interface using asynchronous serial communications - I'd have said "RS-232", "RS-422" or "RS-485", but these include electrical specification (such as ±3-12V or differential signalling) which this Block does *not* adhere to. If you connect a suitable level converter though you can use this Block to implement any of the above standards - the actual serial protocol on this Block is the same with all of them.
 
-But luckily the GP-20U7 GPS module that I got *also* isn't RS-232 or any of the others: it's TTL (0-5V), so I can actually directly connect it to the UART block - or at least I could if it had the correct connector. Easy fix: cut off the tiny one and crimp on a 0.1" connector with the wires in the correct places. Only the UART Block's pins do not project past the edge of the board, and the connnector is too thick to fit between two Blocks. That's OK - the 6-pin socket header I got in [this](https://www.sparkfun.com/products/11417) kit for the [GPIO demo above](#project-05-gpio-demo) does fit - and I can snip the Ground pin to indicate which way around to connect it!
+But luckily the GP-20U7 GPS module that I got *also* isn't RS-232 or any of the others: it's TTL (0-5V), so I can actually directly connect it to the UART Block - or at least I could if it had the correct connector. Easy fix: cut off the tiny one and crimp on a 0.1" connector with the wires in the correct places.
+
+![GP-20U7 connector](Images/GP-20U7.png)
+
+Only, the UART Block's pins do not project past the edge of the board, and the connnector is too thick to fit between two Blocks. That's OK - the 6-pin socket header I got in [this](https://www.sparkfun.com/products/11417) kit for the [GPIO demo above](#project-05-gpio-demo) does fit - and I can snip the Ground pin to indicate which way around to connect it!
+
+![UART](Images/UART.png)
 
 However, the default Linux code for handling serial communications assumes that on the other end is a person typing lines of commands for a serial terminal program to process and display the results for. It offers numerous editing options and lots of smart processing - and only delivers the final line that the user pressed &lt;Enter&gt; on to the (patiently waiting) program.
 
@@ -140,7 +157,18 @@ This is easy: connect the GP-20U7 to the UART Block (switched to the `UART1` mod
 Use `<Ctrl><C>` to quit the stream of characters - after noting that it sends a burst of lines every second.
 
 ## Project 1: [GPS](GPS) program
-We now have enough components to be able to assemble the actual program!
+We now have enough components to be able to assemble the actual program! First, the hardware.
+
+Let's see: I'm going to need the Edison, something to power it (Battery Block), the UART Block, and the OLED Block... Uh oh!
+
+The Edison is designed to be at one end of the stack of Blocks. The OLED Block, with its display and buttons, is designed to be at the opposite end of the stack. The problem is that the Battery Block also by default wants to be at the opposite end - so I had to peel the battery off the Block. Luckily SparkFun still put a Block connector under the battery, and it all fit together nicely:
+
+![GPS Stack](Images/GPS\ Stack.png)
+
+Note that the Edison itself is out of view between the stack and the battery.
+
+And this is what the running program looks like (I'm outside for a good view of the satellites):
+
 ![GPS Summary](Images/GPS.png)
 
 ### GPS Buttons

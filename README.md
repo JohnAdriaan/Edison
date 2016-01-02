@@ -29,12 +29,14 @@ My adventures with the Intel® Edison, using [SparkFun](http://www.sparkfun.com/)
 ## Introduction
 
 ### Me
-I have programmed embedded devices in C and C++ for decades, and have been amazed as the technology has shrunk to allow ever-smaller devices. I've also worked with GPS itself since there were only three GPS satellites in the sky, so I'm familiar with many of the concepts - including the NMEA-0183 protocol used by most of the GPS receivers out there. The problem was that the code that I developed for the company I then worked for was theirs - I had to re-create the code all over again!
+I have programmed embedded devices in C and C++ for decades, and have been amazed as the technology has shrunk to allow ever-smaller devices. I've also worked with GPS itself since there were only three GPS satellites in the sky, so I'm familiar with many of the concepts - including the NMEA-0183 protocol used by most of the GPS receivers out there. The problem was that the code that I developed for the company I then worked for belonged to them - I had to re-create the code for me to use all over again!
 
 (Note: I am not affiliated in any way with SparkFun - except as an enthusiastic customer!)
 
 ### The Edison
-When I first saw the Edison on the [SparkFun](https://www.sparkfun.com/categories/272) website, its small size and powerful features made it an ideal hobbyist developer platform for me. I immeditately ordered it with a number of Blocks:
+When I first saw the Edison on the [SparkFun](https://www.sparkfun.com/categories/272) website, its small size and powerful features made it an ideal hobbyist developer platform for me.
+![The bare Intel Edison](Images/Edison.png)
+I immeditately ordered it with a number of Blocks:
 * The [Starter Pack](https://www.sparkfun.com/products/13276), containing:
   * The [Edison](https://www.sparkfun.com/products/13024) itself;
   * A [Base Block](https://www.sparkfun.com/products/13045), to allow Console and USB connectivity;
@@ -60,9 +62,9 @@ The ultimate aim for my first project was to display on the OLED screen the curr
 The first thing I wanted to do before embarking on my project was to become familiar with Intel®'s version of the C++ development environment Eclipse, and the Intel® libraries. SparkFun also provided modules for some of their Blocks, so I needed to familiarise myself with those as well.
 
 ### Project 0.0: [GitHub](//github.com/JohnBurger/Edison) repository
-Collect all the SparkFun-provided libraries into one place, so that I could tailor them as needed for my requirements.
+First: collect all the SparkFun-provided libraries into one place, so that I could tailor them as needed for my requirements.
 
-SparkFun already used GitHub to version-control and distribute their libraries and examples, so it was an easy job to collate them all into my own Git repository (this one!). I did want to maintain the link back to the original files, though, so I worked through Git's (sometimes arcane) concepts to find out how. Of course, I then moved things around within my own repo, making it difficult to simply Pull future updates from SparkFun's repo. Ah well! I'll work through that when it becomes an issue...
+SparkFun already used GitHub for version control and to distribute their libraries and examples, so it was an easy job to collate them all into my own Git repository ([this one!](.)). I did want to maintain the link back to the original files, though, so I worked through Git's (sometimes arcane) concepts to find out how. Of course, I then moved things around within my own repo, making it difficult to simply Pull future updates from SparkFun's repo. Ah well! I'll work through that when it becomes an issue...
 
 ### Project 0.1: [SparkFun](SparkFun) library
 Once I had all the relevant files in the right place, I could compile a SparkFun library (libSparkFun.a) for inclusion with all my future projects - including the demo programs that SparkFun provided.
@@ -79,14 +81,14 @@ This was the first time that I found a conflict between the GPIO pins used in th
 
 ### Project 0.4: [PWM](PWM) demo
 The PWM Block also has demo code, since the Block adds new PWM ports rather than using the Edison's native ones. The Block's circuit board with the GPIO pins stick out past the side of the Edison Block stack, so to be able to connect the motors and external power I soldered [these pin headers](https://www.sparkfun.com/products/116) to the holes.
-
+![PWM Block, with pin headers](Images/PWM\ Block.png)
 I was able to quickly test the code with some LEDs to prove that everything worked.
 
 ### Project 0.5: [GPIO](GPIO) demo
 The GPIO Block pins also stick out the side of the Edison Block stack - but some smart cookie at SparkFun decided to use the opposite side of the stack from the PWM Block so that the two didn't interfere with each other!
 
 This time I wanted to connect [hookup wires](https://www.sparkfun.com/products/11026) to the pins, and I have far more male-to-male hookup wires than male-to-female ones, so this time I soldered [these socket headers](https://www.sparkfun.com/products/11417) to the holes. I used two Kits, because they only came with one 10-pin header each - but I used the 6-pin header to great effect with the UART Block [below](#project-08-uart-module)!
-
+![GPIO Block, with socket headers](Images/GPIO\ Block.png)
 There was no SparkFun-provided library code, just the demo program, since Intel®'s "mraa" library already has all the requisite functions.
 
 ### Project 0.6: [Button](SparkFun/Button) module
@@ -109,8 +111,12 @@ The program starts by selecting the first font, then going into a loop:
   * Left/Right; scroll to next/previous character;
   * Button A: show next font;
   * Button B: quit
+![5x7 font](Images/Font\ 5x7.png)
+![8x16 font](Images/Font\ 8x16.png)
+![7-segment font](Images/Font\ 7-segment.png)
+![Large number font](Images/Font\ Large\ Number.png)
 
-Nice fonts - and the default 5x7 font had the degree symbol! From my DOS-programming days, it looks like what is often referred to as the "OEM Font" character set.
+Nice fonts - and the default 5x7 font had the degree symbol! From my DOS-programming days, it looks like it's what is often referred to as the "OEM Font" character set.
 
 ### Project 0.8: [UART](SparkFun/UART) module
 The UART Block is designed to connect to devices that interface using asynchronous serial communications - I'd have said "RS-232", "RS-422" or "RS-485", but these include electrical specification (such as ±3-12V or differential signalling) which this Block does *not* adhere to. If you connect a suitable level converter though you can use this Block to implement any of the above standards - the actual serial protocol on this Block is the same with all of them.
@@ -119,7 +125,7 @@ But luckily the GP-20U7 GPS module that I got *also* isn't RS-232 or any of the 
 
 However, the default Linux code for handling serial communications assumes that on the other end is a person typing lines of commands for a serial terminal program to process and display the results for. It offers numerous editing options and lots of smart processing - and only delivers the final line that the user pressed &lt;Enter&gt; on to the (patiently waiting) program.
 
-The GPS unit does indeed send lines of text, but doesn't use any of the editing commands, and my program cant hang around waiting for the next message - the user might have pressed a Button! So, as with the [Button module](#project-06-button-module) above, I can either use a threaded approach to this interface, or put the serial driver into a 'raw' block mode - and write my own end-of-line detection code.
+The GPS unit does indeed send lines of text, but doesn't use any of the editing commands, and my program can't hang around waiting for the next message - the user might have pressed a Button! So, as with the [Button module](#project-06-button-module) above, I can either use a threaded approach to this interface, or put the serial driver into a 'raw' block mode - and write my own end-of-line detection code.
 
 I decided on the latter approach - maybe I'll convert it all to a threaded model in the future.
 
@@ -135,6 +141,7 @@ Use `<Ctrl><C>` to quit the stream of characters - after noting that it sends a 
 
 ## Project 1: [GPS](GPS) program
 We now have enough components to be able to assemble the actual program!
+![GPS Summary](Images/GPS.png)
 
 ### GPS Buttons
 The program offers a number of screens that can be scrolled through by the UART Block's joystick. As GPS information is received, the current screen is automatically updated with the latest information - which could be blank if not enough satellites are currently visible!

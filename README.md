@@ -20,7 +20,7 @@ My adventures with the Intel® Edison, using [SparkFun](http://www.sparkfun.com/
       * [Project 0.8: UART module](#project-08-uart-module)
         * [UART Hardware](#uart-hardware)
         * [UART Software](#uart-software)
-        * [Confirm the GPS talks to us](#confirm-the-gps-talks-to-us)
+        * [Confirm the GPS talks](#confirm-the-gps-talks)
       * [Project 0.9: GPS module](#project-09-gps-module)
     * [Project 1: GPS program](#project-1-gps-program)
       * [GPS Hardware](#gps-hardware)
@@ -159,7 +159,7 @@ The GPS unit does indeed send lines of text, but doesn't use any of the editing 
 
 I decided on the latter approach - maybe I'll convert it all to a threaded model in the future.
 
-#### Confirm the GPS talks to us
+#### Confirm the GPS talks
 This is easy: connect the GP-20U7 to the UART Block (switched to the `UART1` mode rather than `Console`), and enter the command
 
 ```cat /dev/ttyMFD1```
@@ -187,7 +187,7 @@ And this is what the running program looks like (I'm outside for a good view of 
 ![GPS Summary](Images/GPS.png)
 
 ### GPS Buttons
-The program offers a number of screens that can be scrolled through by the UART Block's joystick. As GPS information is received, the current screen is automatically updated with the latest information - which could be blank if not enough satellites are currently visible!
+The program offers a number of screens that can be scrolled through by the OLED Block's joystick. As GPS information is received, the current screen is automatically updated with the latest information - which could be blank if not enough satellites are currently visible!
 * To 'freeze' or 'unfreeze' the current data set, press Button A.
   * The display will be inverted, to show that the data is 'frozen'.
   * The screens can still be scrolled through to see the data at that instant in time.

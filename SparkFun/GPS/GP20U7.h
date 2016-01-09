@@ -44,6 +44,7 @@ public: // Enums
         VTG_Invalid,
 
         GP20U7_Last,
+        GP20U7_First = INV_Invalid,
         GP20U7_Start = GGA_FixedData,
         GP20U7_End   = VTG_CourseSpeed
     }; // Messages

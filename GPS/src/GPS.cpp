@@ -9,10 +9,21 @@
  */
 
 #include <GPS/GP20U7.h>
+#include <File/File.h>
 #include <uart/uart.h>
-
 #include <Button/Button.h>
+
 #include "Screen.h"
+
+const char *fileName[GP20U7::GP20U7_Last] = {
+        "INV.txt", "CHK.txt", "UNK.txt",
+
+        "GGA.txt", "GLL.txt", "GSA.txt",
+        "GSV.txt", "RMC.txt", "VTG.txt",
+
+        "GGA.Inv.txt", "GLL.Inv.txt", "GSA.Inv.txt",
+        "GSV.Inv.txt", "RMC.Inv.txt", "VTG.Inv.txt"
+}; // filename
 
 Button::A     freeze;
 Button::B     quit;
@@ -58,7 +69,19 @@ int Button::Right::Pressed() const {
     return screen.Right();
 } // Right::Pressed()
 
-int main() {
+int main(int argc, char *argv[]) {
+    File dump;
+    File msgFile[GP20U7::GP20U7_Last];
+
+    if (argc>1) { // Any parameter at all?
+        dump.Open("Dump.txt", File::Truncate, File::WriteOnly);
+        for (unsigned msg = 0;
+             msg<GP20U7::GP20U7_Last;
+             ++msg) {
+            msgFile[msg].Open(fileName[msg], File::Truncate, File::WriteOnly);
+        } // for
+    } // if
+
     uart.Configure(9600);       // Configure the UART as 9600 baud, raw mode
     Button::Configure(400,100); // 400 ms initial delay, 100 ms repeat
     while (!finished) {
@@ -66,9 +89,14 @@ int main() {
         bool update = false; // Only update if something changed
 
         char line[256];
-        if (uart.ReadLine(line, sizeof line)) { // Read line from UART
+        unsigned length = uart.ReadLine(line, sizeof line); // Read line from UART
+        if (length>0) {
+            dump.Write(line, length);
             if (!frozen) {                             // If not frozen
                 GP20U7::Messages message = gps.Decode(line); // Decode with GPS
+                if (message<GP20U7::GP20U7_Last) {
+                    msgFile[message].Write(line, length);
+                } // if
                 update = screen.Received(message);           // Anything to update?
             } // if
             wait = false; // Either way, don't wait to process potential new line!
@@ -93,4 +121,4 @@ int main() {
         } // if
     } // while
     return 0;
-} // main()
+} // main(argc, argv[])

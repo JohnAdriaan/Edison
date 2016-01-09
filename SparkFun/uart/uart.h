@@ -33,7 +33,8 @@ public: // Methods
 
     bool Write(const char *string);
 
-    bool ReadLine(char *line, unsigned size);
+    // Returns number of characters in line (which may not end in \n)
+    unsigned ReadLine(char *line, unsigned size);
 
     void Close();
 
@@ -49,7 +50,7 @@ private: // Variables
 
 private: // Methods
 
-    void Copy(char *line, unsigned size);
+    unsigned Copy(char *line, unsigned size);
 
 private: // Variables
 

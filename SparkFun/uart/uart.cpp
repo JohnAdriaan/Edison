@@ -69,7 +69,7 @@ bool edUART::Write(const char *string) {
            ::write(handle, string, len)==len;
 } // edUART::Write(string)
 
-void edUART::Copy(char *line, unsigned size) {
+unsigned edUART::Copy(char *line, unsigned size) {
     unsigned index = 0;
     while (index<pos && size-->0) {
         *line++ = buffer[index++];
@@ -82,30 +82,29 @@ void edUART::Copy(char *line, unsigned size) {
     ::memcpy(&buffer[0], &buffer[pos], last-pos);
     last -= pos;
     pos = 0;
+    return index;
 } // edUART::Copy(line,size)
 
-bool edUART::ReadLine(char *line, unsigned size) {
+unsigned edUART::ReadLine(char *line, unsigned size) {
     for (;;) {
         while (pos<last) {
             if (buffer[pos]!='\n') {
                 ++pos;
                 continue;
             } // if
-            Copy(line,size);
-            return true;
+            return Copy(line,size);
         } // while
         unsigned len = sizeof buffer - last;
         if (len == 0) {
-            Copy(line, size);
-            return true;
+            return Copy(line, size);
         } // if
         int num = ::read(handle, &buffer[last], len);
         if (num<=0) {
-            return false;
+            return 0;
         } // if
         last += num;
     } // for
-    return false;
+    return 0;
 } // edUART::ReadLine(line,size)
 
 void edUART::Close() {

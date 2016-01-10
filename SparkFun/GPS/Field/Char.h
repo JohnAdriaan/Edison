@@ -27,11 +27,11 @@ namespace NMEA0183 {
 
         bool Decode(const char *&line);
 
-    private: // Constants
+    protected: // Constants
 
         const char * const legal;
 
-    private: // Variables
+    protected: // Variables
 
         char value;
 

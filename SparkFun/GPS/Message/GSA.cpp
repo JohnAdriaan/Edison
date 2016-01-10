@@ -21,7 +21,7 @@ static const char * const fixes[] = { "",
 GSA::GSA() :
      Message(),
      automatic('M', 'A'),
-     fix( fixes ),
+     fix( "0123", fixes ),
      sat( { Byte(2),
             Byte(2),
             Byte(2),

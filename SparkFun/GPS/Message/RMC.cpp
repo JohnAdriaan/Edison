@@ -23,7 +23,7 @@ RMC::RMC() :
      date(),
      var(),
      magnetic("EW"),
-     valid('N', 'A') {
+     mode() {
 } // RMC::RMC()
 
 bool RMC::Match(const char *&line) {
@@ -41,7 +41,7 @@ void RMC::Clear() {
     date.Clear();
     var.Clear();
     magnetic.Clear();
-    valid.Clear();
+    mode.Clear();
 } // RMC::Clear()
 
 bool RMC::Decode(const char *line) {
@@ -74,9 +74,7 @@ bool RMC::Decode(const char *line) {
     if (!magnetic.Decode(line)) {
         return false;
     } // if
-    if (!valid.Decode(line)) {
-        return false;
-    } // if
+    mode.Decode(line); // Optional
     if (!Message::Decode(line)) {
         return false;
     } // if

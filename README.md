@@ -169,6 +169,8 @@ Use `<Ctrl><C>` to quit the stream of characters - after noting that it sends a 
 ### Project 0.9: [GPS](SparkFun/GPS) module
 Most GPS devices send their data to the computer over serial lines using the [NMEA-0183](https://en.wikipedia.org/wiki/NMEA_0183) protocol. This is an ASCII protocol, so is human-readable (human-*understandable* however takes practice...). Many GPS units are configurable by the computer sending commands as to which NMEA messages should be sent. The GP-20U7 module I got, however, transmits a default set - and (out-of-the-box) doesn't have a Receive wire to receive commands to change this. No matter: the default set does everything I want!
 
+I ended up finding a reference for the [protocol](https://www.sparkfun.com/datasheets/GPS/NMEA%20Reference%20Manual1.pdf) on SparkFun's website - which allowed me to parse some errors that I saw...
+
 ## Project 1: [GPS](GPS) program
 I now have enough components to be able to assemble the whole project!
 

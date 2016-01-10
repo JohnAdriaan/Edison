@@ -22,7 +22,7 @@ VTG::VTG() :
      n("N"),
      kph(),
      k("K"),
-     valid('N', 'A') {
+     mode() {
 } // VTG::VTG()
 
 bool VTG::Match(const char *&line) {
@@ -39,7 +39,7 @@ void VTG::Clear() {
     n.Clear();
     kph.Clear();
     k.Clear();
-    valid.Clear();
+    mode.Clear();
 } // VTG::CLear()
 
 bool VTG::Decode(const char *line) {
@@ -68,9 +68,7 @@ bool VTG::Decode(const char *line) {
     if (!k.Decode(line)) {
         return false;
     } // if
-    if (!valid.Decode(line)) {
-        return false;
-    } // if
+    mode.Decode(line); // Optional
     if (!Message::Decode(line)) {
         return false;
     } // if

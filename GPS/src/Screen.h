@@ -88,9 +88,6 @@ private: // Methods
 
     void Print(const NMEA0183::Byte &sats);
 
-    void Print(const NMEA0183::Bool *status,
-               const NMEA0183::Bool &valid);
-
     void Print(const NMEA0183::Real &value,
                const NMEA0183::Char &c);
 

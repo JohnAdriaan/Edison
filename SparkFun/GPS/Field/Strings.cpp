@@ -12,17 +12,23 @@
 
 using namespace NMEA0183;
 
-// This helper function returns the number of non-NULL pointers in the array
-static byte Num(const char * const *strings) {
-    byte num = 0;
-    while (*strings++ != 0) {
-        ++num;
-    } // while
-    return num;
-} // Num(strings)
-
-// Use Byte to do all the heavy lifting - but remember strings for display purposes
-Strings::Strings(const char * const *strings) :
-         Byte(1, 0, Num(strings)),
+// Use Char to do all the heavy lifting - but remember strings for display purposes
+Strings::Strings(const char *legal, const char * const *strings) :
+         Char(legal),
          strings(strings) {
-} // Strings::Strings(strings)
+} // Strings::Strings(legal, strings)
+
+const char *NMEA0183::Strings::String() const {
+    if (!IsValid()) {
+        return "";
+    } // if
+    const char * const *string = &strings[0];
+    for (const char *ptr = legal;
+         (*string!=0) && (*ptr!='\0');
+         (++string, ++ptr)) {
+        if (*ptr==value) {
+            return *string;
+        } // if
+    } // for
+    return "";
+} // Strings::String()

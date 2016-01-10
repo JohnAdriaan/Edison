@@ -15,6 +15,7 @@
 #include "../Struct/Lat.h"
 #include "../Struct/Lon.h"
 #include "../Struct/UTC.h"
+#include "../Struct/Mode.h"
 #include "Message.h"
 
 namespace NMEA0183 {
@@ -42,7 +43,7 @@ namespace NMEA0183 {
 
         Bool status;
 
-        Bool valid;
+        Mode mode;
 
     }; // GLL
 

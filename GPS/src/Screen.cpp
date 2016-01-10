@@ -440,7 +440,9 @@ void Screen::ShowGGA(bool loc) {
 void Screen::ShowGLL() {
     setCursor(0,0);
     print("GLL");
-    Print(&gps.gll.status,gps.gll.valid);
+    drawChar(27,0,gps.gll.status.Char());
+    setCursor(40,0);
+    print(gps.gll.mode.String());
     setCursor(0,16);
     Print(gps.gll.utc);
     Print(gps.gll.lat, gps.gll.lon);
@@ -493,8 +495,9 @@ void Screen::ShowGSV(unsigned sat) {
 void Screen::ShowRMC(bool loc) {
     setCursor(0,0);
     print("RMC");
-    write(loc ? '1' : '2');
-    Print(&gps.rmc.status, gps.rmc.valid);
+    drawChar(27,0,gps.rmc.status.Char());
+    setCursor(40,0);
+    print(gps.rmc.mode.String());
     setCursor(0,8);
     Print(gps.rmc.date);
     setCursor(0,16);
@@ -514,7 +517,8 @@ void Screen::ShowRMC(bool loc) {
 void Screen::ShowVTG() {
     setCursor(0,0);
     print("VTG");
-    Print(0, gps.vtg.valid);
+    setCursor(40,0);
+    print(gps.vtg.mode.String());
 
     setCursor(0,8);
     Print(gps.vtg.trueCourse, gps.vtg.t);
@@ -573,13 +577,6 @@ void Screen::Print(const NMEA0183::Byte &sats) {
     setCursor(53,0);
     print(sats.Value());
 } // Screen::Print(sats)
-
-void Screen::Print(const NMEA0183::Bool *status, const NMEA0183::Bool &valid) {
-    if (status!=0) {
-        drawChar(54, 0, status->Char());
-    } // if
-    drawChar(59, 0, valid.Char());
-} // Screen::Print(status,valid)
 
 void Screen::Print(const NMEA0183::Real &value, const NMEA0183::Char &c) {
     char line[12] = "     .    ";

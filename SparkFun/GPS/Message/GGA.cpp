@@ -24,7 +24,7 @@ GGA::GGA() :
      utc(),
      lat(),
      lon(),
-     fix( fixes ),
+     fix( "0123", fixes ),
      sats(2, 0, 12),
      hdop(),
      msl(),

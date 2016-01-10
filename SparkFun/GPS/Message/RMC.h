@@ -18,6 +18,7 @@
 #include "../Struct/Lat.h"
 #include "../Struct/Lon.h"
 #include "../Struct/Date.h"
+#include "../Struct/Mode.h"
 #include "Message.h"
 
 namespace NMEA0183 {
@@ -55,7 +56,7 @@ namespace NMEA0183 {
 
         Char magnetic;
 
-        Bool valid;
+        Mode mode;
 
     }; // RMC
 

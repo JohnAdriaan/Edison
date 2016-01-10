@@ -50,6 +50,9 @@ namespace NMEA0183 {
     // These Structures can be referenced for common code - but deep down they're really just Fields.
     struct Struct;
 
+        // The current GPS mode - this is actually a Strings, but uniform so can be common
+        struct Mode;
+
         // The time ",hhmmss.ss", decoded into hour, min, sec
         struct UTC;
 

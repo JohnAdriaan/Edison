@@ -31,7 +31,7 @@ File::File(const char *name,
     Open(name, mode, access, permissions);
 } // File::File(name, mode, access, permissions)
 
-File &File::operator =(const File &file) {
+File &File::operator =(File &file) {
     if (handle!=file.handle) {
         handle = file.handle;
         file.handle = Invalid;

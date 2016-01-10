@@ -14,6 +14,7 @@
 #include "../Field/Bool.h"
 #include "../Field/Char.h"
 #include "../Field/Real.h"
+#include "../Struct/Mode.h"
 #include "Message.h"
 
 namespace NMEA0183 {
@@ -49,7 +50,7 @@ namespace NMEA0183 {
 
         Char k;
 
-        Bool valid;
+        Mode mode;
 
     }; // VTG
 

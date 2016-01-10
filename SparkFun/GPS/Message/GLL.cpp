@@ -18,7 +18,7 @@ GLL::GLL() :
      lon(),
      utc(),
      status('V', 'A'),
-     valid('N', 'A') {
+     mode() {
 } // GLL::GLL()
 
 void GLL::Clear() {
@@ -27,7 +27,7 @@ void GLL::Clear() {
     lon.Clear();
     utc.Clear();
     status.Clear();
-    valid.Clear();
+    mode.Clear();
 } // GLL::Clear()
 
 bool GLL::Match(const char *&line) {
@@ -48,9 +48,7 @@ bool GLL::Decode(const char *line) {
     if (!status.Decode(line)) {
         return false;
     } // is
-    if (!valid.Decode(line)) {
-        return false;
-    } // if
+    mode.Decode(line); // Optional
     if (!Message::Decode(line)) {
         return false;
     } // if
